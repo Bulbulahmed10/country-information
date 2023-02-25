@@ -4,29 +4,121 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./fav.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./fav.png" type="image/x-icon" />
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css"
       rel="stylesheet"
       type="text/css"
     />
     <title>Country Information</title>
+    <style>
+      /* since nested groupes are not supported we have to use 
+           regular css for the nested dropdowns 
+        */
+      li > ul {
+        transform: translatex(100%) scale(0);
+      }
+      li:hover > ul {
+        transform: translatex(101%) scale(1);
+      }
+      li > button svg {
+        transform: rotate(-90deg);
+      }
+      li:hover > button svg {
+        transform: rotate(-270deg);
+      }
+
+      /* Below styles fake what can be achieved with the tailwind config
+           you need to add the group-hover variant to scale and define your custom
+           min width style.
+             See https://codesandbox.io/s/tailwindcss-multilevel-dropdown-y91j7?file=/index.html
+             for implementation with config file
+        */
+      .group:hover .group-hover\:scale-100 {
+        transform: scale(1);
+      }
+      .group:hover .group-hover\:-rotate-180 {
+        transform: rotate(180deg);
+      }
+      .scale-0 {
+        transform: scale(0);
+      }
+      .min-w-32 {
+        min-width: 8rem;
+      }
+    </style>
   </head>
   <body>
-    <h1 class="text-center font-bold text-xl">Country Information</h1>
-    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box w-[500px]">
-        <input type="checkbox" /> 
-        <div class="collapse-title text-xl font-medium">
-          Click me to show/hide content
+    <header class="sticky w-full top-0 bg-amber-200 py-4 shadow-sm">
+      <h1 class="text-center font-bold text-2xl">Country Information</h1>
+      <!-- ! dropdown menu section -->
+      <section class="flex items-center justify-end mr-[300px]">
+        <div class="group inline-block">
+          <button
+            class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32"
+          >
+            <span class="pr-1 font-semibold flex-1">Filter By Category</span>
+            <span>
+              <svg
+                class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </span>
+          </button>
+          <ul
+            class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
+          >
+            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+              <button
+                class="w-full text-left flex items-center outline-none focus:outline-none"
+              >
+                <span class="pr-1 flex-1">Region</span>
+                <span class="mr-auto">
+                  <svg
+                    class="fill-current h-4 w-4 transition duration-150 ease-in-out"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <ul id="region-category"
+                class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32"
+              >
+                <li class="px-3 py-1 hover:bg-gray-100 cursor-pointer">
+                  Africa
+                </li>
+                <li class="px-3 py-1 hover:bg-gray-100 cursor-pointer">
+                  America
+                </li>
+                <li class="px-3 py-1 hover:bg-gray-100 cursor-pointer">Asia</li>
+                <li class="px-3 py-1 hover:bg-gray-100 cursor-pointer">
+                  Europe
+                </li>
+
+              </ul>
+            </li>
+            <li class="rounded-sm px-3 py-1 hover:bg-gray-100 cursor-pointer">
+              Independent
+            </li>
+            <li class="rounded-sm px-3 py-1 hover:bg-gray-100 cursor-pointer">
+              Dependent
+            </li>
+          </ul>
         </div>
-        <div class="collapse-content"> 
-          <p>Region</p>
-            <p>Capital city</p>
-            <p>Language</p>
-        </div>
-      </div>
-    <section id="country-container" class="grid grid-cols-4" >
-    </section>
+      </section>
+    </header>
+
+    <!-- ! country container section start -->
+    <section id="country-container" class="grid grid-cols-4 mt-4"></section>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./script.js"></script>
   </body>

@@ -3,15 +3,32 @@ const loadData = async () => {
   try {
     const res = await fetch(url);
     const data = await res.json();
+
     displayData(data);
   } catch (err) {
     console.log(err);
   }
 };
 
+
+const regionCategory = document.getElementById("region-category");
+for (const children of regionCategory.children) {
+  children.addEventListener("click", async (e) => {
+    try {
+      const regionName = e.target.innerText.toLowerCase();
+      const url = `https://restcountries.com/v3.1/subregion/${regionName}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      displayData(data);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
+
 const displayData = (countries) => {
   const countriesContainer = document.getElementById("country-container");
-
+  countriesContainer.innerHTML = "";
   countries.forEach((country) => {
     const div = document.createElement("div");
     div.classList.add(
@@ -30,7 +47,7 @@ const displayData = (countries) => {
                 />
                 <div class="mt-2 ml-4">
                   <p class="font-medium">Name: <span class="font-bold">${country.altSpellings[1]}</span></p>
-                  <p class="font-medium">Capital: <span class="font-bold">${country.capital[0]}</span></p>
+                  <p class="font-medium">Population: <span class="font-bold">${country.population}</span></p>
                   <p class="font-medium">Region: <span class="font-bold">${country.region}</span></p>
                   <p class="font-medium">Timezones: <span class="font-bold">${country.timezones[0]}</span></p>
                 </div>   
