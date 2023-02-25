@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./fav.png" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>Country Information</title>
+  </head>
+  <body>
+    <h1 class="text-center font-bold text-xl">Country Information</h1>
+    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box w-[500px]">
+        <input type="checkbox" /> 
+        <div class="collapse-title text-xl font-medium">
+          Click me to show/hide content
+        </div>
+        <div class="collapse-content"> 
+          <p>Region</p>
+            <p>Capital city</p>
+            <p>Language</p>
+        </div>
+      </div>
+    <section id="country-container" class="grid grid-cols-4" >
+    </section>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
