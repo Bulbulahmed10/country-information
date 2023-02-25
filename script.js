@@ -1,3 +1,4 @@
+//! data fetch functionality
 const loadData = async () => {
   const url = "https://restcountries.com/v3.1/all";
   try {
@@ -10,7 +11,7 @@ const loadData = async () => {
   }
 };
 
-
+//! filter by region
 const regionCategory = document.getElementById("region-category");
 for (const children of regionCategory.children) {
   children.addEventListener("click", async (e) => {
@@ -26,6 +27,39 @@ for (const children of regionCategory.children) {
   });
 }
 
+document
+  .getElementById("independent-list")
+  .addEventListener("click", async () => {
+    const url = "https://restcountries.com/v3.1/all";
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const independentCountriesList = data.filter(
+        (country) => country.independent === true
+      );
+      displayData(independentCountriesList);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+document
+  .getElementById("dependent-list")
+  .addEventListener("click", async () => {
+    const url = "https://restcountries.com/v3.1/all";
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const dependentCountriesList = data.filter(
+        (country) => country.independent === false
+      );
+      displayData(dependentCountriesList);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+//! display fetch result functionality
 const displayData = (countries) => {
   const countriesContainer = document.getElementById("country-container");
   countriesContainer.innerHTML = "";
